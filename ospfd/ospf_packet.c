@@ -704,10 +704,12 @@ static int ospf_write(struct thread *thread)
 		sa_dst.sin_addr = op->dst;
 		sa_dst.sin_port = htons(0);
 
+#ifndef OSPFD_NO_DONTROUTE
 		/* Set DONTROUTE flag if dst is unicast. */
 		if (oi->type != OSPF_IFTYPE_VIRTUALLINK)
 			if (!IN_MULTICAST(htonl(op->dst.s_addr)))
 				flags = MSG_DONTROUTE;
+#endif
 
 		iph.ip_hl = sizeof(struct ip) >> OSPF_WRITE_IPHL_SHIFT;
 		/* it'd be very strange for header to not be 4byte-word aligned

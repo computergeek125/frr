@@ -245,6 +245,8 @@ AC_ARG_ENABLE(ospfapi,
 AC_ARG_ENABLE(ospfclient,
   AS_HELP_STRING([--disable-ospfclient], [do not build OSPFAPI client for OSPFAPI,
                           (this is the default if --disable-ospfapi is set)]))
+AC_ARG_ENABLE(ospfd_no_dontroute,
+  AS_HELP_STRING([--enable-ospfd-no-dontroute], [allow OSPFd unicast packets to be routed]))
 AC_ARG_ENABLE(multipath,
   AS_HELP_STRING([--enable-multipath=ARG], [enable multipath function, ARG must be digit]))
 AC_ARG_ENABLE(user,
@@ -1220,6 +1222,7 @@ if test "${enable_ospfapi}" != "no";then
 fi
 
 AM_CONDITIONAL(OSPFCLIENT, test "x$OSPFCLIENT" = "xospfclient")
+AM_CONDITIONAL(OSPFD_NO_DONTROUTE, test "x${enable_ospfd_no_dontroute}" = "xyes")
 
 case "${enable_ripngd}" in
   "no" ) RIPNGD="";;
